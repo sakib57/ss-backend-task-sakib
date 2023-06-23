@@ -4,10 +4,25 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { MovieModule } from './movie/movie.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import 'dotenv/config';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 
+const DB_CONNECTION = process.env.DB_CONNECTION;
 @Module({
   controllers: [AppController],
   providers: [AppService],
-  imports: [UserModule, AuthModule, MovieModule],
+  imports: [
+    MongooseModule.forRoot(DB_CONNECTION),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: true,
+      context: ({ req }) => ({ req }),
+    }),
+    UserModule,
+    AuthModule,
+    MovieModule,
+  ],
 })
 export class AppModule {}
