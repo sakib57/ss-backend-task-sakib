@@ -8,6 +8,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import 'dotenv/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
+import { HeroModule } from './hero/hero.module';
+import { HeroineModule } from './heroine/heroine.module';
+import { DirectorModule } from './director/director.module';
 
 const DB_CONNECTION = process.env.DB_CONNECTION;
 @Module({
@@ -23,6 +26,9 @@ const DB_CONNECTION = process.env.DB_CONNECTION;
     UserModule,
     AuthModule,
     MovieModule,
+    HeroModule,
+    HeroineModule,
+    DirectorModule,
   ],
 })
 export class AppModule {}
