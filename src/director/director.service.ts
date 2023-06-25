@@ -32,7 +32,7 @@ export class DirectorService {
   async findOne(id: string) {
     const director = await this.directorModel.findOne({ _id: id });
     if (!director) {
-      throw new NotFoundException('Director not found');
+      return Promise.reject(new NotFoundException('Director not found'));
     }
     return director;
   }

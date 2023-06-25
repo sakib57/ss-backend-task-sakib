@@ -1,7 +1,24 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
+import { IsMongoId, IsString } from 'class-validator';
 
 @InputType()
 export class CreateMovieInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @Field()
+  @IsString()
+  name: string;
+
+  @Field()
+  @IsMongoId()
+  director: string;
+
+  @Field()
+  @IsMongoId()
+  hero: string;
+
+  @Field()
+  @IsMongoId()
+  heroine: string;
+
+  @Field()
+  runTime: string;
 }

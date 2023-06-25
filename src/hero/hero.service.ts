@@ -30,7 +30,7 @@ export class HeroService {
   async findOne(id: string) {
     const hero = await this.heroModel.findOne({ _id: id });
     if (!hero) {
-      throw new NotFoundException('Director not found');
+      return Promise.reject(new NotFoundException('Hero not found'));
     }
     return hero;
   }
