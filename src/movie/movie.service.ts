@@ -19,6 +19,7 @@ export class MovieService {
     private directorService: DirectorService,
   ) {}
 
+  // Movie create
   async create(createMovieInput: CreateMovieInput) {
     try {
       const movie = await this.movieModel.findOne({
@@ -40,6 +41,7 @@ export class MovieService {
     }
   }
 
+  // Movie List
   async findAll() {
     return await this.movieModel
       .find()

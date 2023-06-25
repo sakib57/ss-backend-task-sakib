@@ -3,6 +3,10 @@ import { HeroService } from './hero.service';
 import { Hero } from './entities/hero.entity';
 import { CreateHeroInput } from './dto/create-hero.input';
 import { UpdateHeroInput } from './dto/update-hero.input';
+import { UseGuards } from '@nestjs/common';
+import { PermissionGuard } from 'src/auth/guards/role.guard';
+import { Permissions } from 'src/auth/decorators/permission.decorator';
+import Permission from 'src/auth/permissions/permission.type';
 
 @Resolver(() => Hero)
 export class HeroResolver {
