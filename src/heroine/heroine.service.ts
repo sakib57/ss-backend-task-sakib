@@ -32,7 +32,7 @@ export class HeroineService {
   async findOne(id: string) {
     const heroine = await this.heroineModel.findOne({ _id: id });
     if (!heroine) {
-      throw new NotFoundException('Director not found');
+      return Promise.reject(new NotFoundException('Heroien not found'));
     }
     return heroine;
   }

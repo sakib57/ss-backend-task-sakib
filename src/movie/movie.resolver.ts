@@ -13,13 +13,13 @@ export class MovieResolver {
     return this.movieService.create(createMovieInput);
   }
 
-  @Query(() => [Movie], { name: 'movie' })
+  @Query(() => [Movie], { name: 'movies' })
   findAll() {
     return this.movieService.findAll();
   }
 
   @Query(() => Movie, { name: 'movie' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => String }) id: string) {
     return this.movieService.findOne(id);
   }
 
