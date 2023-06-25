@@ -3,6 +3,7 @@ import {
   HttpStatus,
   Injectable,
   NotAcceptableException,
+  NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { UpdateUserInput } from './dto/update-user.input';
@@ -47,12 +48,27 @@ export class UserService {
     });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: string) {
+    return await this.userModel.findOne({
+      _id: id,
+    });
   }
 
-  update(id: number, updateUserInput: UpdateUserInput) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserInput: UpdateUserInput) {
+    try {
+      const user = await this.findOne(id);
+      if (!user) {
+        return Promise.reject(new NotFoundException('User not found'));
+      }
+      const userInput = new UserInput();
+      userInput.firstName = updateUserInput.firstName;
+      userInput.lastName = updateUserInput.laststName;
+      userInput.permissions = JSON.stringify(updateUserInput.permissions);
+      const setUser = { ...updateUserInput, ...userInput };
+      return await user.set(setUser).save();
+    } catch (error) {
+      throw new HttpException(error, error.status || HttpStatus.BAD_REQUEST);
+    }
   }
 
   remove(id: number) {
